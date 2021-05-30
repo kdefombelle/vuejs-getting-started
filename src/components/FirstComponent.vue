@@ -26,7 +26,7 @@
         </table>
       </div>
 		</div>
-		<div class="bottom">
+		<div class="middle">
       <h2>Child Component</h2>
       <select v-model="selectedColor">
         <option disabled value="">Please select one color</option>
