@@ -3,7 +3,6 @@
     <div v-once><h1>{{ pageTitle }}</h1></div>
 		<div class="top">
 			<h2>Core Directives</h2>
-			<!-- <div>{{ computedGetter.computedAttribute1 }}</div> -->
       <button @click="toggleDisplay()">@click to toggle display</button>
       <br/><br/>
       <div>
@@ -35,9 +34,9 @@
         <option>green</option>
       </select>
       <br/><br/>
-			<ChildComponent :color="selectedColor" alignment="center" @childEvent="v => attribute1=v"/>
+			<ChildComponent :color="selectedColor" alignment="center" @childEvent="v => childCounter=v"/>
       <br/>
-      <div >Click number <b>{{ attribute1 }}</b></div>
+      <div >Click number <b>{{ childCounter }}</b></div>
 		</div>
 		<div class="bottom">
       <div><h2>Style Examples</h2></div>
@@ -52,10 +51,10 @@
 
 <script>
 import ChildComponent from './ChildComponent.vue'
-import HelperMixin from './HelperMixin.js'
+import HelperMixin from './HelperMixin'
 
 function functionX(v) {
-	console.log("functionX: "+v);
+	console.log("functionX: " + v);
 }
 
 export default {
@@ -67,19 +66,15 @@ export default {
   data() { //note data() is a function
     return {
       pageTitle: "FirstComponent",
-      attribute1: 0,
-      computedAttribute1: "test computed attribute",
+      childCounter: 0,
       display: true,
       collection: ['element1','element2'],
       selectedColor: "green",
       green: true,
     };
   },
-  mixin: [HelperMixin],
+  mixins: [HelperMixin],
   computed: {
-      //  computedGetter: function(){
-      //      return this.computedAttribute1 + " computed suffix";
-      //  },
       borderCssStyle() {
         return { 
           border: this.green ? 
@@ -92,10 +87,6 @@ export default {
       },
   },
   methods: {
-    setAttribute1(v) {
-      console.log('V :: '+v);
-      this.attribute1 = v;
-    },
     toggleDisplay() {
       functionX("toggleDisplay");
       this.display = ! this.display;
