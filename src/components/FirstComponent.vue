@@ -1,41 +1,51 @@
 <template>
   <div class="content">
+    <div v-once><h1>{{ pageTitle }}</h1></div>
 		<div class="top">
-			<div v-once><h2>{{ pageTitle }}</h2></div>
-			<div>{{ computedGetter.computedAttribute1 }}</div>
+			<h2>Core Directives</h2>
+			<!-- <div>{{ computedGetter.computedAttribute1 }}</div> -->
+      <button @click="toggleDisplay()">@click to toggle display</button>
+      <br/><br/>
+      <div>
+        <span v-if="display">Conditional display with <b>v-if</b></span>
+        <br/>
+        <span v-show="display">Conditional  with <b>v-show</b></span> 
+        <br/>
+      </div>
       <br/>
-			<span v-if="display">Conditional display with <b>v-if</b></span>
-      <br/>
-			<span v-show="display">Conditional  with <b>v-show</b></span>
-      <br/>
-      <br/>
-			<button @click="toggleDisplay()">@click to toggle display </button>
-      <br/>
-      <br/>
-			<table>
-					<tr>
-            <th>index</th>
-						<th>value</th>
-					</tr>
-					<tr v-for="(element, index) in collection" :key="index">
-						<td>{{ index }}</td>
-            <td>{{ element }}</td>
-					</tr>
-			</table>
-      <br/>
-      <br/>
+      <div>
+        <div><b>v-for</b> example</div>
+        <table>
+            <tr>
+              <th>index</th>
+              <th>value</th>
+            </tr>
+            <tr v-for="(element, index) in collection" :key="index">
+              <td>{{ index }}</td>
+              <td>{{ element }}</td>
+            </tr>
+        </table>
+      </div>
 		</div>
 		<div class="bottom">
-      <div><h2>Child Component Section</h2></div>
-			<ChildComponent :color="childColor" alignment="center" @childEvent="v => attribute1=v"/>
-      <div >Click number{{ attribute1 }}</div>
+      <h2>Child Component</h2>
+      <select v-model="selectedColor">
+        <option disabled value="">Please select one color</option>
+        <option>red</option>
+        <option>green</option>
+      </select>
+      <br/><br/>
+			<ChildComponent :color="selectedColor" alignment="center" @childEvent="v => attribute1=v"/>
+      <br/>
+      <div >Click number <b>{{ attribute1 }}</b></div>
 		</div>
 		<div class="bottom">
       <div><h2>Style Examples</h2></div>
-			<div :style="borderStyle">title :style</div>
-			<div :style="[borderStyle, custom-title]">title :style array</div>
-			<div :class="{'red-border': display}">title :class</div>
-			<div :class="[borderCssClass, 'custom-title']">title :class array</div>
+      <button @click="toggleColors()">Toggle borders</button>
+			<div :style="borderCssStyle">title <code>:style</code></div>
+			<div :style="[borderCssStyle, 'custom-title']">title <code>:style</code> array</div>
+			<div :class="{'green-border': green}">title <code>:class</code></div>
+			<div :class="[borderCssClass, 'custom-title']">title <code>:class</code> array</div>
 		</div>
 	</div>
 </template>
@@ -56,19 +66,30 @@ export default {
   components: {ChildComponent},
   data() { //note data() is a function
     return {
-      pageTitle: "This is FirstComponent Page Title",
+      pageTitle: "FirstComponent",
       attribute1: 0,
       computedAttribute1: "test computed attribute",
       display: true,
       collection: ['element1','element2'],
-      childColor: "red",
+      selectedColor: "green",
+      green: true,
     };
   },
   mixin: [HelperMixin],
   computed: {
-       computedGetter: function(){
-           return this.computedAttribute1 + " computed suffix";
-       }
+      //  computedGetter: function(){
+      //      return this.computedAttribute1 + " computed suffix";
+      //  },
+      borderCssStyle() {
+        return { 
+          border: this.green ? 
+            '1px solid '+this.selectedColor : 
+            '',
+        };
+      },
+      borderCssClass() {
+        return this.green ? this.selectedColor+'-border' : '';
+      },
   },
   methods: {
     setAttribute1(v) {
@@ -76,15 +97,12 @@ export default {
       this.attribute1 = v;
     },
     toggleDisplay() {
-      functionX("method1");
+      functionX("toggleDisplay");
       this.display = ! this.display;
-      this.childColor = "blue";
     },
-    borderStyle() {
-      return {border: this.display ? '1px solid red' : '1px solid blue'}
-    },
-    borderCssClass() {
-      return {border: this.display ? 'red-border' : ''}
+    toggleColors() {
+      functionX("toggleColors");
+      this.green = ! this.green;
     },
   }
 };
@@ -104,18 +122,22 @@ button{
 .content {
   align-content: center;
   background: linear-gradient(to bottom,white, rgb(203, 235, 203));
+  background-attachment: fixed;
 }
 .top {
   align-content: center;
 }
 .custom-title {
-  text-align: center;
+  font-style: italic;
+}
+.green-border {
+  border: 1px solid darkgreen;
 }
 .red-border {
   border: 1px solid red;
 }
 table {
-  border: 1px solid blue;
+  border: 1px solid black;
   display: inline-table;
 }
 </style>

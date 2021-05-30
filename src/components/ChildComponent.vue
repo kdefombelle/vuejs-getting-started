@@ -1,6 +1,6 @@
 <template>
 	<div>
-    <button @click="sendEvent()">Send Event from Child Component</button>
+    <button :style="{backgroundColor: color}" @click="sendEvent()">Send Event from Child Component</button>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
       type: String,
       required: true,
       validator(value) {
-            return ['red', 'blue'].includes(value);
+            return ['blue', 'green','red'].includes(value);
         }
     },
     alignment: {
