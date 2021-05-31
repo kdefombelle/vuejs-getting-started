@@ -1,32 +1,44 @@
 <template>
-    <div>
-      <main>
-        <div id="app">
-          <img alt="Vue logo" src="./assets/logo.png">
-          <FirstComponent/>
-        </div>
-      </main>
-    </div>
+  <div id="app">
+    <header>
+      <nav>
+        <ul>
+          <il class="nav-item">
+            <router-link :to="{name: 'Home'}" exact>
+              <img class="logo" src="./assets/logo.png"/>Home | </router-link>
+          </il>
+          <il class="nav-item">
+            <router-link :to="{name: 'First'}" exact>FirstComponent | </router-link>
+          </il>
+          <il class="nav-item">
+            <router-link :to="{name: 'Second', params: {id:9}}" exact>SecondComponent</router-link>
+          </il>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <router-view/>
+    </main>
+  </div>
 </template>
 
-<script>
-import FirstComponent from './components/FirstComponent.vue'
 
+<script>
 export default {
-  name: 'App',
-  components: {
-    FirstComponent
-  }
-}
+  name: "App",
+  components: {},
+};
 </script>
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+main {
+  margin:0 auto;
+  width: 1024px;
+}
+.router-link-active {
+  color: orchid;
 }
 </style>

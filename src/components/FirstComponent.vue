@@ -101,19 +101,19 @@ export default {
 
 /* global styles, usually only in App.vue only */
 <style> 
-button{
-  color: white;
-  background-color: green;
+.content {
+  align-content: center;
+  background: linear-gradient(to bottom, white, rgb(203, 235, 203));
+  background-attachment: fixed;
 }
 </style>
 
 /* scope your style to be applied only in current component */
 /* You can use SAAS simply adding lang attribute */
 <style scoped>
-.content {
-  align-content: center;
-  background: linear-gradient(to bottom,white, rgb(203, 235, 203));
-  background-attachment: fixed;
+button{
+  color: white;
+  background-color: green;
 }
 .top {
   align-content: center;
