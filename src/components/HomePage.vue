@@ -10,13 +10,18 @@
     </div>
     <br/>
     <div>
-      <button @click="goToFirstComponent()"><u>
+      <button @click="goTo()"><u>
         Go to First Component programatically</u></button>
     </div>
     <br/>
     <div>
-       <button  @click="goToFirstComponentWithParams()"><u>
-        Go to First Component programatically with params</u></button>
+       <button  @click="goToWithParams()"><u>
+        Go to Second Component programatically with params</u></button>
+    </div>
+     <br/>
+    <div>
+       <button  @click="goToWithProps()"><u>
+        Go to Third Component programatically with props</u></button>
     </div>
   </div>
 </template>
@@ -30,14 +35,23 @@ export default {
     };
   },
   methods: {
-    goToFirstComponent: function(){
+    goTo: function(){
       this.$router.push('/first');
     },
-    goToFirstComponentWithParams: function(){
+    goToWithParams: function(){
       this.$router.push({
         name: 'Second', 
         params: {
-          id: 8, 
+          id: 2, 
+          }
+        });
+    },
+    goToWithProps: function(){
+      this.$router.push({
+        name: 'Third', 
+        params: {
+          callerMessage: "Message from Home", 
+          callerId: "3", 
           }
         });
     },
@@ -45,10 +59,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.content {
-  align-content: center;
-  background: linear-gradient(to bottom, white, rgb(203, 235, 203));
-  background-attachment: fixed;
-}
-</style>
+
